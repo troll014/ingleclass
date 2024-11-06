@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/repeated_bg">
+
+
+
+        <TextView
+            android:id="@+id/playerNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jugador: "
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+        <!-- TextView para mostrar los puntos totales, ubicado en la parte superior -->
+
+        <!-- FrameLayout para el contenido principal, ubicado debajo del TextView de puntos -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_below="@id/pointsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="10dp">
+                                <ImageButton
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:id="@+id/daysandmonths"
+                                    android:src="@drawable/gunler"
+                                    android:layout_marginRight="50dp"
+                                    android:scaleType="fitCenter"
+                                    android:background="@color/fragmentbackground"/>
+                                <ImageButton
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:id="@+id/numbers"
+                                    android:src="@drawable/_1"
+                                    android:scaleType="fitCenter"
+                                    android:background="@color/fragmentbackground"/>
+                        </TableRow>
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="10dp" android:layout_marginLeft="45dp">
+                                <TextView android:text="Days" />
+                                <TextView android:text="Numbers" />
+                        </TableRow>
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="10dp">
+                                <ImageButton
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:id="@+id/animals"
+                                    android:src="@drawable/dog"
+                                    android:layout_marginRight="50dp"
+                                    android:scaleType="fitCenter"
+                                    android:background="@color/fragmentbackground"/>
+                                <ImageButton
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:id="@+id/fruits"
+                                    android:src="@drawable/apple"
+                                    android:scaleType="fitCenter"
+                                    android:background="@color/fragmentbackground"/>
+                        </TableRow>
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="10dp" android:layout_marginLeft="40dp">
+                                <TextView android:text="Animals" />
+                                <TextView android:text="Fruits" />
+                        </TableRow>
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="10dp">
+                                <ImageButton
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:src="@drawable/bag"
+                                    android:id="@+id/goods"
+                                    android:layout_marginRight="50dp"
+                                    android:scaleType="fitCenter"
+                                    android:background="@color/fragmentbackground"/>
+                                <ImageButton
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:src="@drawable/color"
+                                    android:scaleType="fitCenter"
+                                    android:id="@+id/colors"
+                                    android:background="@color/fragmentbackground"/>
+                        </TableRow>
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="10dp" android:layout_marginLeft="45dp">
+                                <TextView android:text="Items" />
+                                <TextView android:text="Colors" />
+                        </TableRow>
+
+                        <TableRow android:gravity="center" android:layout_marginBottom="5dp">
+                                <Button
+                                    android:id="@+id/quizyap"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/rounded_button"
+                                    android:text="QUIZ YAP"/>
+                        </TableRow>
+
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/pointsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Puntos Totales: 0"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+        </FrameLayout>
+
+</RelativeLayout>

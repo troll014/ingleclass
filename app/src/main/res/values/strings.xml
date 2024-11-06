@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Learn and Play</string>
+    <string name="title_activity_tabbed">Days</string>
+    <string name="action_settings">Take Quiz</string>
+    <string name="section_format">Fruit -> %1$d</string>
+    <string name="title_activity_tabbed_numbers">Numbers</string>
+    <string name="title_activity_tabbed_animals">Animals</string>
+    <string name="title_activity_tabbed_fruits">Fruits</string>
+    <string name="title_activity_tabbed_goods">Objects</string>
+    <string name="title_activity_tabbed_colors">Colors</string>
+    <string name="txt_start_page">Quiz Screen</string>
+    <string name="str_start_now">Start Now</string>
+    <string name="str_next">Next</string>
+    <string name="str_done">Finish</string>
+    <string name="str_results">Results</string>
+    <string name="str_gotohome">Go to Home</string>
+    <string name="str_viewans">View Results</string>
+    <string name="navigation_drawer_open">Open Drawer</string>
+    <string name="navigation_drawer_close">Close Drawer</string>
+</resources>

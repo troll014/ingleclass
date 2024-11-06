@@ -1,0 +1,58 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bienvenida"
+    android:padding="16dp"
+    android:gravity="center"
+    android:id="@+id/welcome_layout"> <!-- ID agregado aquí -->
+
+    <!-- Título de bienvenida -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Bienvenidos a la Aventura de Aprendizaje!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingBottom="24dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000" /> <!-- Cambié el color a negro puro para mayor contraste -->
+
+    <!-- Mensaje de introducción -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingresa tu nombre para comenzar"
+        android:textSize="18sp"
+        android:paddingBottom="16dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000" /> <!-- Cambié el color a negro puro -->
+
+    <!-- Campo para ingresar el nombre del jugador -->
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Escribe tu nombre aquí"
+        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="#000000"
+        android:textColorHint="#555555"
+        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/edit_text_background" />
+
+
+    <!-- Botón para continuar -->
+    <Button
+        android:id="@+id/buttonContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Comenzar Aventura!"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#4CAF50" />
+
+</LinearLayout>

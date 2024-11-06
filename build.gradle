@@ -1,0 +1,20 @@
+buildscript {
+    repositories {
+        google()      // Add Google Maven repository
+        mavenCentral() // Add Maven Central as a backup
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.6.0' // Use a recent compatible version
+    }
+}
+
+allprojects {
+    repositories {
+        google()      // Add Google Maven repository here as well
+        mavenCentral() // Add Maven Central as a backup
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
