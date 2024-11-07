@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvAboutQuiz"
-            android:text="Sorular oldukça kolay. Şimdi başla butonuna basarak quiz'e başlayabilirsiniz."
+            android:text=" Puede iniciar el cuestionario presionando el botón Comenzar ahora."
             android:textSize="18sp"
             android:textStyle="normal"
             android:textColor="#000000"/>

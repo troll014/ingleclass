@@ -1,10 +1,11 @@
 package com.example.canabis.PicBrain;
 
-
+import android.os.AsyncTask;
 import android.content.Intent;
 import android.media.MediaPlayer;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +15,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.canabis.PicBrain.R;
+
+import org.json.JSONObject;
+
+import java.util.concurrent.Executors;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private String userName = "Loo";
     private TextView pointsTextView;
     private TextView playerNameTextView;
+    int points = 0;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,9 +154,36 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        // getCurrentPoints();
 //        checkAndCreateUser();
+        userName = getIntent().getStringExtra("USER_NAME");
+        playerNameTextView = findViewById(R.id.playerNameTextView);
 
+        if (userName != null && !userName.isEmpty()) {
+            playerNameTextView.setText("Jugador: " + userName);
+            loadUserPoints(userName); // Carga los puntos del usuario desde la base de datos
+        } else {
+            Toast.makeText(this, "No se encontró el nombre del usuario", Toast.LENGTH_SHORT).show();
+        }
         getPoints(userName);
-        savePoints(userName, 100);
+//        savePoints(userName, 100);
+
+//        playerNameTextView = findViewById(R.id.playerNameTextView);
+  pointsTextView = findViewById(R.id.pointsTextView);
+//        playerNameTextView.setText("Jugador: " + userName);
+//        userName = getIntent().getStringExtra("USER_NAME");
+
+        saveUser(userName, points);
+        Log.d(TAG, "Guardando usuario: " + userName + " con puntos iniciales: " + points);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -237,69 +271,141 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }).start();
 //    }
-
+//ESTE CODIGO DE ABAJO FUNCIONA TOTALMENTE PARA OBTENER UN PUNTOS DESDE PHP
     private void getPoints(String username) {
-        Call<ResponseBody> call = ApiClient.getApiService().getPoints(username);
+        Call<ResponseBody> call = ApiClient.getApiService().getPointsRaw(username);
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Procesar los puntos obtenidos
+                    try {
+                        String responseBody = response.body().string();
+                        // Parseo manual del JSON
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        int points = jsonObject.getInt("points");
+
+                        // Actualiza el TextView con los puntos
+                        pointsTextView.setText("Puntos Totales: " + points);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Error al procesar los puntos", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "No se pudieron cargar los puntos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Manejar el error
+                Toast.makeText(MainActivity.this, "Error de conexión al cargar puntos", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void savePoints(String username, int points) {
+
+
+//    private void savePoints(String username, int points) {
+//        ApiService apiService = ApiClient.getApiService();
+//        Call<ResponseBody> call = apiService.savePoints(username, points);
+//
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(MainActivity.this, "Puntos guardados con éxito", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Error al guardar puntos", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+//
+//
+//    private void savePointsToServer(String username, int points) {
+//        ApiService apiService = ApiClient.getApiService();
+//        Call<ResponseBody> call = apiService.savePoints(username, points);
+//
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(getApplicationContext(), "Puntos guardados con éxito", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Puntos guardados con éxito", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Puntos guardados con éxito", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
+
+
+
+
+
+
+
+    private void loadUserPoints(String username) {
         ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.savePoints(username, points);
+        Call<ResponseBody> call = apiService.getPointsRaw(username);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Puntos guardados con éxito", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        String responseBody = response.body().string();
+                        Log.d("MainActivity", "Respuesta del servidor: " + responseBody);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Error al procesar los puntos", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(MainActivity.this, "Error al guardar puntos", Toast.LENGTH_SHORT).show();
+                    Log.e("MainActivity", "Respuesta fallida: " + response.message());
+                    Log.e("MainActivity", "URL: " + call.request().url());
+                    Toast.makeText(MainActivity.this, "No se pudieron cargar los puntos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                Log.e("MainActivity", "Error de conexión: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Error de conexión al cargar puntos", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
-    private void savePointsToServer(String username, int points) {
-        ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.savePoints(username, points);
 
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Puntos guardados con éxito", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Error al guardar puntos", Toast.LENGTH_SHORT).show();
-                }
-            }
+    private void saveUser(String name, int points) {
+        User user = new User(name, points);
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+        // Usar AsyncTask para realizar operaciones en la base de datos
+        AsyncTask.execute(() -> {
+            try {
+                Log.d(TAG, "Intentando guardar el usuario en la base de datos...");
+                DatabaseClient.getInstance(getApplicationContext())
+                        .getAppDatabase()
+                        .userDao()
+                        .insert(user); // Llama al método de inserción de UserDao
+                Log.d(TAG, "Usuario guardado correctamente: " + name);
+            } catch (Exception e) {
+                Log.e(TAG, "Error al guardar el usuario", e);
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Error al guardar el usuario", Toast.LENGTH_SHORT).show());
             }
         });
     }
-
 
 
 }
-
 

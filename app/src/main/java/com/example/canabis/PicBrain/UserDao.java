@@ -16,6 +16,9 @@ public interface UserDao {
     @Query("SELECT * FROM user_table WHERE name = :name LIMIT 1")
     User getUserByName(String name);
 
+
+    @Insert
+    void insertUser(User user);
     @Query("SELECT points FROM user_table WHERE name = :name LIMIT 1")
     int getPointsByName(String name);
 }

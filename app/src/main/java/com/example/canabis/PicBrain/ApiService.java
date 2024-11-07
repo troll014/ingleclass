@@ -10,9 +10,9 @@ import retrofit2.http.Field;
 
 public interface ApiService {
     @GET("get_points.php")
-    Call<ResponseBody> getPoints(@Query("username") String username);
+    Call<ResponseBody> getPointsRaw(@Query("username") String username);
 
-    @POST("save_points.php")
-    @FormUrlEncoded
-    Call<ResponseBody> savePoints(@Field("username") String username, @Field("points") int points);
+    @GET("get_points.php")
+    Call<User> getPoints(@Query("username") String username);
 }
+

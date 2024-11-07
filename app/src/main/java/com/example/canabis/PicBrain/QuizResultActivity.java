@@ -149,27 +149,27 @@ public class QuizResultActivity extends AppCompatActivity {
 
 
 
-
-    private void savePointsToServer(String username, int points) {
-        ApiService apiService = ApiClient.getApiService();
-        Call<ResponseBody> call = apiService.savePoints(username, points);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.d("QuizResultActivity", "Puntos guardados con éxito en el servidor");
-                } else {
-                    Log.e("QuizResultActivity", "Error al guardar puntos en el servidor");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("QuizResultActivity", "Error de conexión al servidor: " + t.getMessage());
-            }
-        });
-    }
+//
+//    private void savePointsToServer(String username, int points) {
+//        ApiService apiService = ApiClient.getApiService();
+//        Call<ResponseBody> call = apiService.savePoints(username, points);
+//
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (response.isSuccessful()) {
+//                    Log.d("QuizResultActivity", "Puntos guardados con éxito en el servidor");
+//                } else {
+//                    Log.e("QuizResultActivity", "Error al guardar puntos en el servidor");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Log.e("QuizResultActivity", "Error de conexión al servidor: " + t.getMessage());
+//            }
+//        });
+//    }
 
 
 
